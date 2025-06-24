@@ -24,4 +24,20 @@ SELECT MIN(price) AS max_price, MAX(price) AS min_price FROM books;
 
 SELECT SUM(price) AS total_price FROM books;
 
+-- when need a spechiphic condition type data we can use BETWEEN keyword for condition.
+
+SELECT * FROM books
+    WHERE price BETWEEN 200 AND 250;
+
+-- If you search or params with the spechiphic column like titile, author name or etc you can use LIKE or ILIKE keyword from postgres;
+
+SELECT * FROM books
+    WHERE author_name LIKE 'George%';
+
+SELECT * FROM books
+    WHERE book_title ILIKE 'the%';
+
+SELECT * FROM books
+    WHERE author_name IN ('J.R.R. Tolkien', 'Aldous Huxley');
+
 SELECT * FROM books;
