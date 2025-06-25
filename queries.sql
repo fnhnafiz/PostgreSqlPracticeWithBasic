@@ -40,4 +40,50 @@ SELECT * FROM books
 SELECT * FROM books
     WHERE author_name IN ('J.R.R. Tolkien', 'Aldous Huxley');
 
+-- when need to pagination type work we can use LIMIT keyword and OFSET keyword. Because this keyword can do split data for any side. 
+SELECT * FROM books
+    LIMIT 2;
+
+SELECT * FROM books
+    LIMIT 5 OFFSET 2;
+
+-- when you need to show the all agregate count a person how many book create; Then we can use GROUP BY keyword;
+SELECT author_name, COUNT(*) FROM books GROUP BY author_name;
+
+-- when we need to that with condition that the highest person in our site created book the largest count. There we can use a keyword HAVING
+
+SELECT author_name, COUNT(*) FROM books GROUP BY author_name HAVING COUNT(*) > 1;
+
+-- When Refference ID does Deleted. How can we fix it.
+
+ALTER TABLE books DROP CONSTRAINT books_publisher_id_fkey;
+
+ALTER TABLE books
+    ADD CONSTRAINT books_publishers_id_fkey
+    FOREIGN KEY (publisher_id) REFERENCES publishers(id)
+    ON DELETE CASCADE;
+
+DELETE FROM publishers
+    WHERE id = 4;
+
+-- we use now inner join. If my table available a NULL values and the INNER JOIN can not return the NULL type values. If we need that the real person data there have no null value then we can use this INNER JOIN;
+SELECT b.title ,b.author_name, p.name AS publisher_name FROM books b INNER JOIN publishers p ON b.publisher_id = p.id;
+
+
+-- When we need to the data with NULL values then we can use LEFT JOIN.;
+SELECT b.title, b.author_name, b.published_year, p.name AS publisher_details FROM books
+    b LEFT JOIN publishers p ON b.publisher_id = p.id;
+
+-- How to see date;
+SELECT CURRENT_DATE;
+
+SELECT current_time;
+
+SELECT EXTRACT (YEAR FROM CURRENT_DATE) AS "Year",
+EXTRACT (MONTH FROM CURRENT_DATE) AS "Month",
+EXTRACT (DAY FROM CURRENT_DATE) AS "Day";
+
 SELECT * FROM books;
+SELECT * FROM publishers;
+
+DROP TABLE publishers;
